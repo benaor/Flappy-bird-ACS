@@ -8,4 +8,25 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index : 1;
+}
+
+
+#gameOver{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index : 2;
+    color: white;
+    padding: 150px;
+    background: black;
+}
+
+.d-none{
+    display: none;
+}
+
+.d-block{
+    display: block;
 }

@@ -8,17 +8,20 @@
   
 </head>
 
-<body>
+<body onkeydown="jump()">
     <h1>Flappy bird</h1>
 
     <canvas id="canvas_flappy_bird" width="480" height="640">
        <p>Votre navigteur ne prend pas en charge la technologie Canvas necessaire au fonctionnement du jeu.</p>
       </canvas>
 
+      <p id="gameOver" class="d-none">
+            GAME OVER
+      </p>
+
     <script src="flappy.js"></script>
     <script>
         MiseEnPlaceImage();
-        jump();
     </script>
 
 </body>
