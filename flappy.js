@@ -25,13 +25,14 @@
     //variable lié a la gravité    
     let multiplicator    = Math.round( Math.random() * 300 );
     let multiplicator2   = Math.round( Math.random() * 300 );
+    let score            = 0;
     let posMonkeyY       = 200;
     let posMonkeyX       = 100;
-    let widthMonkey      = monkey.width;
-    let heightMonkey     = monkey.height;
+    let widthMonkey      = 50;
+    let heightMonkey     = 50;
     let pipeWidth        = 70;
-    let gravity          = 2;
-    const spacePipe      = 1.2;
+    let gravity          = 1;
+    const spacePipe      = 1.3;
     let posPipeX         = cvs.width*spacePipe;
     let posPipe2X        = (cvs.width*spacePipe/2);
     let pipeTopHeight    = 350;
@@ -47,8 +48,8 @@ function MiseEnPlaceImage() {
      ctx.drawImage(monkey, posMonkeyX, posMonkeyY, widthMonkey, heightMonkey);
      ctx.drawImage(pipeTop, posPipeX, (-300+multiplicator), 70, pipeTopHeight);
      ctx.drawImage(pipeBottom, posPipeX, (200+multiplicator) , 70, pipeBottomHeight);
-    //  ctx.drawImage(pipeTop2, posPipe2X, (-300+multiplicator2), 70, 350);
-    //  ctx.drawImage(pipeBottom2, posPipe2X, (200+multiplicator2), 70, 450);
+     ctx.drawImage(pipeTop2, posPipe2X, (-300+multiplicator2), 70, 350);
+     ctx.drawImage(pipeBottom2, posPipe2X, (200+multiplicator2), 70, 450);
      ctx.drawImage(sol, 0, (cvs.height - sol.height), cvs.width, sol.height);
 
          
@@ -72,10 +73,10 @@ function MiseEnPlaceImage() {
         gravity = 0;
         // alert('vous êtes perdu dans les nuages');
     }
-
+   
     //deplacement des obstacles
     if(   (posPipeX + pipeWidth) >= 0   ){
-        posPipeX -= gravity;
+     posPipeX -= gravity;
     }
 
     else if(  (posPipeX + pipeWidth) <= 0 ){
@@ -84,15 +85,15 @@ function MiseEnPlaceImage() {
     }
     
 
-    //deplacement des seconds obstacles 
-    // if(posPipe2X >= (0 - pipeTop.width*2)   ){
-    //     posPipe2X -= gravity;
-    // }
+    // //deplacement des seconds obstacles 
+    if(   (posPipe2X + pipeWidth) >= 0){
+        posPipe2X -= gravity;
+    }
 
-    // else if(posPipe2X <= (0 - pipeTop2.width*2)   ){
-    //     multiplicator2 = Math.round( Math.random() * 300 );
-    //     posPipe2X = cvs.width*spacePipe;
-    // }
+    else if(   (posPipe2X + pipeWidth) <= 0){
+        multiplicator2 = Math.round( Math.random() * 300 );
+        posPipe2X = cvs.width*spacePipe;
+    }
 
     // interaction avec les obstacles
     if( (posMonkeyX+widthMonkey) >= posPipeX 
@@ -110,17 +111,55 @@ function MiseEnPlaceImage() {
 
         document.getElementById('gameOver').classList.remove("d-none");
         gravity = 0;
-
     }
+
+    // // interaction avec les obstacles 2
+    if( (posMonkeyX+widthMonkey) >= posPipe2X 
+    && posMonkeyX <= (posPipe2X + pipeWidth)
+    && posMonkeyY <= ((-300+multiplicator2) + pipeTopHeight) ) {
+    
+        document.getElementById('gameOver').classList.remove("d-none");
+        gravity = 0;
+    }
+    
+    else if( (posMonkeyX+widthMonkey) >= posPipe2X 
+    && posMonkeyX <= (posPipe2X + pipeWidth)
+    && (posMonkeyY + heightMonkey) >= (200+multiplicator2) ) {
+    
+        document.getElementById('gameOver').classList.remove("d-none");
+        gravity = 0;
+    }
+
+    if(score == 2){
+        gravity = 2;
+    }
+
+    if (score == 4){
+         gravity = 3;
+    }
+
+    // if(score == 6){
+    //     gravity ++;
+    // }
+
+    //affichage du score
+    if((posPipe2X + pipeWidth) == posMonkeyX || (posPipeX + pipeWidth) == posMonkeyX ){
+        score++;
+        console.log(score)
+    }
+
+    ctx.fillstyle = "#000";
+    ctx.font = "3rem arial";
+    ctx.fillText(score, 50, 50)
 
 }
 
 function jump() {
     const spaceBar = event.key;
-    console.log(posPipeTopY);
-
 
     if(spaceBar !== 0){
-        posMonkeyY -= 30;
+        posMonkeyY -= 50;
+        document.posMonkeyY.style = " animation-name: example";
+        document.posMonkeyY.style = "animation-duration: 4s";
     }
 }

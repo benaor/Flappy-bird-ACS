@@ -4,11 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>Flappy Bird ACS</title>
-    <link rel="stylesheet" href="style.css">
-  
+    <link rel="stylesheet" href="style.css">  
 </head>
 
-<body onkeydown="jump()">
+<body onkeypress="jump()">
     <h1>Flappy bird</h1>
 
     <canvas id="canvas_flappy_bird" width="480" height="640">
@@ -22,6 +21,9 @@
     <script src="flappy.js"></script>
     <script>
         MiseEnPlaceImage();
+
+        document.querySelector("#tonScore").innerHTML = score;
+
     </script>
 
 </body>
